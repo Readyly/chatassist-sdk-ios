@@ -1,6 +1,6 @@
 //
 //  ChatView.swift
-//  
+//
 //
 //  Created by Mustafa Karakus on 12.06.2024.
 //
@@ -8,31 +8,25 @@
 import SwiftUI
 
 public struct ChatView: View {
-    let url: URL
-    @State private var isLoading = true
-
-    public init(url: URL, isLoading: Bool = true) {
-        self.url = url
-        self.isLoading = isLoading
-    }
+    @State var viewModel:WebViewViewModel
     
     public var body: some View {
         ZStack {
-            WebView(url: url, isLoading: $isLoading)
+            WebView(viewModel: viewModel)
                 .edgesIgnoringSafeArea(.all)
-
-            if isLoading {
+            
+            
+            if viewModel.isLoading {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
-                    .padding()
-                    .background(Color.white.opacity(0.7))
                     .cornerRadius(10)
-                    .foregroundColor(.white)
+                    .frame(width: 200, height: 200)
             }
-        }
+            
+        }.presentationBackground(.clear)
     }
 }
 
 #Preview {
-    ChatView(url: URL(string: "https://www.youtube.com")!)
+    ChatView(viewModel: WebViewViewModel(webResource: ""))
 }
