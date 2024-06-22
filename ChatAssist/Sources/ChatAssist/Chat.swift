@@ -18,7 +18,7 @@ public struct Chat {
     }
      
     /// Starts the chat session
-    public mutating func startSession() -> some View {
+    public func startSession() -> some View {
         let viewModel = WebViewViewModel(webResource: chatUrl)
         return ChatView(viewModel: viewModel)
     }
