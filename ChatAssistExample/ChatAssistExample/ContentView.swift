@@ -9,8 +9,8 @@ import SwiftUI
 import ChatAssist
 
 struct ContentView: View {
+    @State private var viewModel = ChatViewModel()
     @State private var isSheetPresented = false
-    @State private var viewModel = try? ChatViewModel()
     
     var body: some View {
         VStack {
@@ -31,10 +31,23 @@ struct ContentView: View {
         }
         .background(Color.blue.opacity(0.4))
         .fullScreenCover(isPresented: $isSheetPresented, content: {
-            viewModel?.startSession()
+            viewModel.startSession()
         })
+        .onChange(of: viewModel.isReady) {
+            if viewModel.isReady {
+                print("Chat is ready")
+                isSheetPresented = true
+            }
+        }
+        .onChange(of: viewModel.isClosed) {
+            if viewModel.isClosed {
+                print("Chat is closed")
+                isSheetPresented = false
+            }
+        }
     }
 }
+
 
 #Preview {
     ContentView()

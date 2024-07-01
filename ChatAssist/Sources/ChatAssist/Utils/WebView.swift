@@ -21,9 +21,7 @@ struct WebView: UIViewRepresentable {
             .userContentController
         
         userContentController.removeAllScriptMessageHandlers()
-        
-        userContentController.add(context.coordinator, name: messageHandlerKey)
-        
+        userContentController.add(context.coordinator, contentWorld: WKContentWorld.page, name: messageHandlerKey)
         viewModel.webView.uiDelegate = context.coordinator
         viewModel.webView.navigationDelegate = context.coordinator
         viewModel.webView.configuration.defaultWebpagePreferences.allowsContentJavaScript = true
@@ -52,15 +50,33 @@ extension WebView {
         
         init(viewModel: WebViewViewModel) {
             self.viewModel = viewModel
+
+        
         }
         
         func userContentController(_ userContentController: WKUserContentController,
                                    didReceive message: WKScriptMessage) {
-            print("message received \(message.name)")
             if message.name == messageHandlerKey {
-                self.viewModel.messageFrom(message: message.body)
+                handleMessage(jsonString: String(describing: message.body))
             }
         }
+        
+        private func handleMessage(jsonString: String) {
+            guard let data = jsonString.data(using: .utf8) else {
+                print("Failed to convert string to data")
+                return
+            }
+
+            do {
+                let payload = try JSONDecoder().decode(Chat.MessagePayload.self, from: data)
+                if let action = Chat.Action(rawValue: payload.type) {
+                    viewModel.receivedAction(action) 
+                }
+            } catch {
+                print("Failed to read message: \(error)")
+            }
+        }
+        
         
         func userContentController(_ userContentController: WKUserContentController,
                                    didReceive message: WKScriptMessage,

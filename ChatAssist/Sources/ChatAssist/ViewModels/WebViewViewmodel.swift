@@ -14,9 +14,11 @@ public class WebViewViewModel {
     var webView: WKWebView
     var messageFromWV: String = ""
     var isLoading: Bool = false
-    
-    public init(webResource: String? = nil) {
+    weak var delegate: ChatAssistDelegate?
+
+    public init(webResource: String? = nil, delegate: ChatAssistDelegate? = nil) {
         self.webResource = webResource
+        self.delegate = delegate
         let configuration = WKWebViewConfiguration()
         let preferences = WKWebpagePreferences()
         preferences.allowsContentJavaScript = true
@@ -29,12 +31,57 @@ public class WebViewViewModel {
         self.webView.isInspectable = true
 #endif
     }
-    
+     
     func messageTo(message: String) {
         let escapedMessage = message.replacingOccurrences(of: "\"", with: "\\\"")
         
         let js = "window.postMessage(\"\(escapedMessage)\", \"*\")"
         self.webView.evaluateJavaScript(js) { (result, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func receivedAction(_ action: Chat.Action) {
+        switch action {
+        case .ready:
+            delegate?.chatDidReceiveReadyAction()
+        case .close:
+            delegate?.chatDidReceiveCloseAction()
+        }
+    }
+    
+    func postAction(action: Chat.Action) {
+        postMessage(type: action.rawValue)
+    }
+    
+    func postMessage(type: Chat.Message, payload: [String:Any]) {
+        postMessage(type: type.rawValue, payload: payload)
+    }
+    
+    private func postMessage(type: String, payload: [String:Any]? = nil) {
+        var messageDict: [String: Any] = ["type": type]
+        
+        if let payload = payload {
+            for (key, value) in payload {
+                messageDict[key] = value
+            }
+        }
+        
+        do {
+            let messageData = try JSONSerialization.data(withJSONObject: messageDict, options: [])
+            if let messageString = String(data: messageData, encoding: .utf8) {
+                let script = "window.postMessage(\(messageString), window.location.origin)"
+                evaluateJavaScript(script)
+            }
+        } catch {
+            print("Failed to send the message: \(error)")
+        }
+    }
+    
+    private func evaluateJavaScript(_ script: String) {
+        self.webView.evaluateJavaScript(script) { (result, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             }
@@ -62,4 +109,9 @@ public class WebViewViewModel {
             webView.load(request)
         }
     }
+}
+
+public protocol ChatAssistDelegate: AnyObject {
+     func chatDidReceiveReadyAction()
+     func chatDidReceiveCloseAction()
 }
