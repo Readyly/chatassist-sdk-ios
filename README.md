@@ -106,3 +106,20 @@ extension ChatViewModel: ChatAssistDelegate {
     }
 }
 ```
+
+- Sending user details
+
+The payload type is dictionary. The payload can be sent based on the app requirements.
+
+```swift
+chat?.postMessage(type: .userDetails, payload: ["name":"Mauro", "lastname":"Icardi", "age":30])
+```
+
+- Sending additional details
+
+The payload type is dictionary. The payload can be sent based on the app requirements.
+
+```swift
+chat?.postMessage(type: .additionalDetails, payload: ["device":"iPhone", "model":"15 Pro", "timestamp":"1688227922"])
+```
+

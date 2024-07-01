@@ -62,24 +62,24 @@ public class WebViewViewModel {
         postMessage(type: type.rawValue, payload: payload)
     }
     
+    
     private func postMessage(type: String, payload: [String:Any]? = nil) {
         var messageDict: [String: Any] = ["type": type]
         
         if let payload = payload {
-            for (key, value) in payload {
-                messageDict[key] = value
-            }
+            messageDict["payload"] = payload
         }
         
         do {
             let messageData = try JSONSerialization.data(withJSONObject: messageDict, options: [])
             if let messageString = String(data: messageData, encoding: .utf8) {
-                let script = "window.postMessage(\(messageString), window.location.origin)"
+                let script = "window.postMessage('\(messageString)\', window.location.origin)"
                 evaluateJavaScript(script)
             }
         } catch {
             print("Failed to send the message: \(error)")
         }
+        
     }
     
     private func evaluateJavaScript(_ script: String) {
