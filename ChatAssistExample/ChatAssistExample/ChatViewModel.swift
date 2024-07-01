@@ -26,7 +26,7 @@ public class ChatViewModel {
         return chat?.startSession()
     }
     
-    func endSession() -> some View {
+    func endSession() {
         chat?.endSession()
     }
     
@@ -45,12 +45,12 @@ public class ChatViewModel {
 extension ChatViewModel: ChatAssistDelegate {
     public func chatDidReceiveReadyAction() {
         isReady = true
+        isClosed = false
     }
     
     public func chatDidReceiveCloseAction() {
+        isReady = false
         isClosed = true
-        _ = chat?.endSession()
-        chat = nil
     }
 }
 

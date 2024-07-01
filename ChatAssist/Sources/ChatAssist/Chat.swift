@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-public struct Chat {
+public class Chat {
     let context: Context
     public let chatUrl: String
     private var view: ChatView? = nil
@@ -18,16 +18,16 @@ public struct Chat {
         chatUrl = url
         viewModel = WebViewViewModel(webResource: chatUrl, delegate: delegate)
     }
-     
+    
     /// Starts the chat session
     public func startSession() -> some View {
         return ChatView(viewModel: viewModel)
     }
-    
+        
     /// Ends the chat session
-    public func endSession() -> some View  {
+    public func endSession() {
+        view = nil
         viewModel.delegate = nil
-        return EmptyView()
     }
     
     public func postAction(action: Chat.Action) {

@@ -50,8 +50,6 @@ extension WebView {
         
         init(viewModel: WebViewViewModel) {
             self.viewModel = viewModel
-
-        
         }
         
         func userContentController(_ userContentController: WKUserContentController,
@@ -113,7 +111,6 @@ extension WebView {
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
             viewModel.isLoading = false
         }
-        
     }
 }
 

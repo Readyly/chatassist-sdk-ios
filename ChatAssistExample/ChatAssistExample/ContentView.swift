@@ -29,9 +29,10 @@ struct ContentView: View {
                 .padding(.horizontal)
             }
         }
-        .background(Color.blue.opacity(0.4))
-        .fullScreenCover(isPresented: $isSheetPresented, content: {
-            viewModel.startSession()
+        .fullScreenCover(isPresented: $isSheetPresented, onDismiss: {
+            isSheetPresented = false
+        }, content: {
+            viewModel.startSession() 
         })
         .onChange(of: viewModel.isReady) {
             if viewModel.isReady {
