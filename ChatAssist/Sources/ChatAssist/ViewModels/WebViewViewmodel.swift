@@ -73,7 +73,7 @@ public class WebViewViewModel {
         do {
             let messageData = try JSONSerialization.data(withJSONObject: messageDict, options: [])
             if let messageString = String(data: messageData, encoding: .utf8) {
-                let script = "window.postMessage('\(messageString)\', window.location.origin)"
+                let script = "window.postMessage('\(messageString)', window.location.origin)"
                 evaluateJavaScript(script)
             }
         } catch {
