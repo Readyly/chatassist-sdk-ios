@@ -14,7 +14,8 @@ extension Chat {
     }
     public enum Action: String {
         case ready = "_ft_ready_",
-             close = "_ft_close_"
+             close = "_ft_close_",
+             minimise = "_ft_minimize_"
     }
     
     struct MessagePayload: Decodable {

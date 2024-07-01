@@ -15,7 +15,7 @@ public class WebViewViewModel {
     var messageFromWV: String = ""
     var isLoading: Bool = false
     weak var delegate: ChatAssistDelegate?
-
+    
     public init(webResource: String? = nil, delegate: ChatAssistDelegate? = nil) {
         self.webResource = webResource
         self.delegate = delegate
@@ -31,7 +31,7 @@ public class WebViewViewModel {
         self.webView.isInspectable = true
 #endif
     }
-     
+    
     func messageTo(message: String) {
         let escapedMessage = message.replacingOccurrences(of: "\"", with: "\\\"")
         
@@ -49,6 +49,8 @@ public class WebViewViewModel {
             delegate?.chatDidReceiveReadyAction()
         case .close:
             delegate?.chatDidReceiveCloseAction()
+        case .minimise:
+            delegate?.chatDidReceiveMinimiseAction?()
         }
     }
     
@@ -111,7 +113,8 @@ public class WebViewViewModel {
     }
 }
 
-public protocol ChatAssistDelegate: AnyObject {
-     func chatDidReceiveReadyAction()
-     func chatDidReceiveCloseAction()
+@objc public protocol ChatAssistDelegate {
+    func chatDidReceiveReadyAction()
+    func chatDidReceiveCloseAction()
+    @objc optional func chatDidReceiveMinimiseAction()
 }
