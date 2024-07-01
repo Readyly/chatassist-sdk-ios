@@ -10,16 +10,13 @@ import Foundation
 extension Chat {
     public struct UrlBuilder {
         public static func build(context: Chat.Context) -> String? {
-            guard var components = URLComponents(string: context.baseUrl),
-                  !context.licenseId.isEmpty,
-                  !context.orgName.isEmpty else {
+            guard var components = URLComponents(string: context.baseUrl),!context.orgName.isEmpty else {
                 return nil
             }
             
             var queryItems = [
                 URLQueryItem(name: "orgName", value: context.orgName.quotos),
-                URLQueryItem(name: "platform", value: "mobile_ios".quotos),
-                URLQueryItem(name: "licenseId", value: context.licenseId.quotos)
+                URLQueryItem(name: "platform", value: "mobile_ios".quotos)
             ]
             
             if let profile = context.profile {
