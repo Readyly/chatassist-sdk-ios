@@ -31,8 +31,7 @@ public class ChatViewModel {
     }
     
     private func initialise() {
-        let context = Chat.Context(baseUrl: ChatParams.url,
-                                   orgName: ChatParams.orgName,
+        let context = Chat.Context(orgName: ChatParams.orgName,
                                    profile: ChatParams.profile)
         do {
             chat = try Chat(context: context, delegate: self)
@@ -55,7 +54,6 @@ extension ChatViewModel: ChatAssistDelegate {
 }
 
 struct ChatParams {
-    static let url = "https://dev.daowxbrjd6wcz.amplifyapp.com"
     static let orgName = "help"
     static let profile = "christmas"
 }
