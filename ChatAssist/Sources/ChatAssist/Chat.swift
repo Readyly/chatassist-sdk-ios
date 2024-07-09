@@ -23,7 +23,7 @@ public class Chat {
     public func startSession() -> some View {
         return ChatView(viewModel: viewModel)
     }
-        
+    
     /// Ends the chat session
     public func endSession() {
         view = nil

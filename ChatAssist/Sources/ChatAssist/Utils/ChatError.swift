@@ -10,6 +10,6 @@ import Foundation
 extension Chat {
     /// Errors that can occur when initializing `Chat`.
     enum ChatError: Error {
-          case invalidURL
+        case invalidURL
     }
 }

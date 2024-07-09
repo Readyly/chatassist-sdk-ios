@@ -96,10 +96,24 @@ var chat = try Chat(context: context)
 
 ```swift
 extension ChatViewModel: ChatAssistDelegate {
+    public func chatDidReceiveErrorAction(message: String) {
+        print("Error occured: \(message)")
+    }
+
     public func chatDidReceiveReadyAction() {
+    
     }
     
     public func chatDidReceiveCloseAction() {
+    
+    }
+    
+    public func chatDidReceiveExpandAction() {
+        
+    }
+    
+    public func chatDidReceiveMinimiseAction() {
+        
     }
 }
 ```

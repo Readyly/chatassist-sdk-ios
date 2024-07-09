@@ -64,11 +64,11 @@ extension WebView {
                 print("Failed to convert string to data")
                 return
             }
-
+            
             do {
                 let payload = try JSONDecoder().decode(Chat.MessagePayload.self, from: data)
                 if let action = Chat.Action(rawValue: payload.type) {
-                    viewModel.receivedAction(action) 
+                    viewModel.receivedAction(action)
                 }
             } catch {
                 print("Failed to read message: \(error)")

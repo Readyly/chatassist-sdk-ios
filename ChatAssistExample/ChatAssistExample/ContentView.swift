@@ -46,9 +46,15 @@ struct ContentView: View {
                 isSheetPresented = false
             }
         }
+        .onChange(of: viewModel.isMinimised) {
+            if viewModel.isMinimised {
+                print("Chat is minimised")
+            } else {
+                print("Chat is expanded")
+            }
+        }
     }
 }
-
 
 #Preview {
     ContentView()

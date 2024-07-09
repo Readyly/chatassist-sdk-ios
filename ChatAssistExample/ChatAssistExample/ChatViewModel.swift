@@ -11,9 +11,10 @@ import SwiftUI
 
 @Observable
 public class ChatViewModel {
-     var chat: Chat?
-     var isReady = false
-     var isClosed = false
+    var chat: Chat?
+    var isReady = false
+    var isClosed = false
+    var isMinimised = false
     
     init() {
         initialise()
@@ -42,6 +43,10 @@ public class ChatViewModel {
 }
 
 extension ChatViewModel: ChatAssistDelegate {
+    public func chatDidReceiveErrorAction(message: String) {
+        print("Error occured: \(message)")
+    }
+    
     public func chatDidReceiveReadyAction() {
         isReady = true
         isClosed = false
@@ -50,6 +55,14 @@ extension ChatViewModel: ChatAssistDelegate {
     public func chatDidReceiveCloseAction() {
         isReady = false
         isClosed = true
+    }
+    
+    public func chatDidReceiveExpandAction() {
+        isMinimised = false
+    }
+    
+    public func chatDidReceiveMinimiseAction() {
+        isMinimised = true
     }
 }
 

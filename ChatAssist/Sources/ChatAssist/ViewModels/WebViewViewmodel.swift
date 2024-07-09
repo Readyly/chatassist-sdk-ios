@@ -51,6 +51,10 @@ public class WebViewViewModel {
             delegate?.chatDidReceiveCloseAction()
         case .minimise:
             delegate?.chatDidReceiveMinimiseAction?()
+        case .expand:
+            delegate?.chatDidReceiveExpandAction?()
+        case .error(let message):
+            delegate?.chatDidReceiveErrorAction(message: message)
         }
     }
     
@@ -114,7 +118,9 @@ public class WebViewViewModel {
 }
 
 @objc public protocol ChatAssistDelegate {
+    func chatDidReceiveErrorAction(message:String)
     func chatDidReceiveReadyAction()
     func chatDidReceiveCloseAction()
     @objc optional func chatDidReceiveMinimiseAction()
+    @objc optional func chatDidReceiveExpandAction()
 }
