@@ -72,14 +72,11 @@ import ChatAssist
 ```
 
 - Initialize the ChatAssist by providing the context parameters.
-`baseUrl` : The base url of the chat server.
 `orgName` : Organisation name
 `profile` : Chat Profile *optional
 
 ```swift
-let context = Chat.Context(baseUrl: "https://dev.mychatserver.com",
-                                   orgName: "help",
-                                   profile: "christmas")
+let context = Chat.Context(orgName: "help", profile: "christmas")
 var chat = try Chat(context: context)
 ```
 
@@ -109,17 +106,23 @@ extension ChatViewModel: ChatAssistDelegate {
 
 - Sending user details
 
-The payload type is dictionary. The payload can be sent based on the app requirements.
+The payload type is dictionary.
+If user details are not sent, the widget will prompt the user when required.
 
 ```swift
-chat?.postMessage(type: .userDetails, payload: ["name":"Mauro", "lastname":"Icardi", "age":30])
+chat?.postMessage(type: .userDetails, payload: ["firstName":"Mauro",
+                                                "lastName":"Icardi",
+                                                "email":"mauro.icardi@mooail.com"])
 ```
 
 - Sending additional details
 
-The payload type is dictionary. The payload can be sent based on the app requirements.
+The payload type is dictionary.
+`details` within the payload will be attached to the ticket created during the session.
+If the `append` option is `false` any prior additional details will be overwritten.
 
 ```swift
-chat?.postMessage(type: .additionalDetails, payload: ["device":"iPhone", "model":"15 Pro", "timestamp":"1688227922"])
+chat?.postMessage(type: .additionalDetails, payload: ["details":"diagnostics or relevant details",
+                                                        "options": ["append":false]])
 ```
 
