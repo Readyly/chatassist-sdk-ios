@@ -7,10 +7,12 @@
 
 import Foundation
 
+let baseUrl = "https://chatassist.readyly.app"
+
 extension Chat {
     public struct UrlBuilder {
         public static func build(context: Chat.Context) -> String? {
-            guard var components = URLComponents(string: context.baseUrl),!context.orgName.isEmpty else {
+            guard var components = URLComponents(string: baseUrl),!context.orgName.isEmpty else {
                 return nil
             }
             
