@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
     spec.author = "Readyly"
     spec.platform = :ios
     spec.ios.deployment_target = "17.0"
-    spec.source = { :git => "https://github.com/Readyly/chatassist-sdk-ios.gitt" }
+    spec.source = { :git => "https://github.com/Readyly/chatassist-sdk-ios.git" }
     spec.resources = ["Resources/*.xcassets", "Resources/*.lproj"]
     spec.source_files = 'ChatAssist/Sources/**/*'
     spec.module_name      = spec.name
