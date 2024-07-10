@@ -52,14 +52,16 @@ You can use CocoaPods to install **ChatAssist**
 - Adding ChatAssist to your Podfile:
 
 ```Pod
+platform :ios, '17.0'
 use_frameworks!
 
 target 'MyApp' do
-    pod 'ChatAssist'
+    pod 'ChatAssist', :git => 'https://github.com/Readyly/chatassist-sdk-ios.git'
 end
 ```
 
 - Run `pod install` on the terminal where Podfile is located.
+- Open your iOS project from `.xcworkspace` file
 
 <a name="usage" />
 
