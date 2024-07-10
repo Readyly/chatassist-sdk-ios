@@ -94,7 +94,7 @@ extension WebView {
         }
         
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
-            guard let requestURL = navigationAction.request.url?.absoluteString else { return }
+            guard let _ = navigationAction.request.url?.absoluteString else { return }
             decisionHandler(.allow)
         }
         
