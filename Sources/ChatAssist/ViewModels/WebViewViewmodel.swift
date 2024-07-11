@@ -14,6 +14,7 @@ public class WebViewViewModel {
     var webView: WKWebView
     var messageFromWV: String = ""
     var isLoading: Bool = false
+    var lastState: Chat.Action = .ready
     weak var delegate: ChatAssistDelegate?
     
     public init(webResource: String? = nil, delegate: ChatAssistDelegate? = nil) {
@@ -27,6 +28,8 @@ public class WebViewViewModel {
                                  configuration: configuration)
         self.webView.isOpaque = false
         self.webView.backgroundColor = UIColor.clear
+        loadUrl()
+
 #if DEBUG
         self.webView.isInspectable = true
 #endif
@@ -48,6 +51,7 @@ public class WebViewViewModel {
         case .ready:
             delegate?.chatDidReceiveReadyAction()
         case .close:
+            reset()
             delegate?.chatDidReceiveCloseAction()
         case .minimise:
             delegate?.chatDidReceiveMinimiseAction?()
@@ -56,6 +60,7 @@ public class WebViewViewModel {
         case .error(let message):
             delegate?.chatDidReceiveErrorAction(message: message)
         }
+        lastState = action
     }
     
     func postAction(action: Chat.Action) {
@@ -104,16 +109,23 @@ public class WebViewViewModel {
         return messageFromWV
     }
     
-    public func loadWebPage() {
+    public func loadUrl() {
         if let webResource = webResource {
             guard let url = URL(string: webResource) else {
                 print("Bad URL")
                 return
             }
-            
-            let request = URLRequest(url: url)
-            webView.load(request)
+            load(url: url)
         }
+    }
+    
+    private func reset() {
+        load(url: URL(string: "about:blank")!)
+    }
+    
+    private func load(url: URL) {
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
 }
 

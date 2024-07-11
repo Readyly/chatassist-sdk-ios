@@ -44,6 +44,7 @@ struct ContentView: View {
             if viewModel.isClosed {
                 print("Chat is closed")
                 isSheetPresented = false
+                viewModel.isClosed = false
             }
         }
         .onChange(of: viewModel.isMinimised) {
