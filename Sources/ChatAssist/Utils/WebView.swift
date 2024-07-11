@@ -32,7 +32,9 @@ struct WebView: UIViewRepresentable {
                 }
             }
         }
-        viewModel.loadWebPage()
+        if viewModel.lastState == .close {
+            viewModel.loadUrl()
+        }
         return viewModel.webView
     }
     
