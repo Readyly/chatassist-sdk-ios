@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "chatassist-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Readyly/chatassist-sdk-ios.git",
+      "state" : {
+        "revision" : "550407dde4327fb4e30d4191d58a97c2e094582f",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 2
+}
