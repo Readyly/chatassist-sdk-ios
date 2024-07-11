@@ -68,5 +68,5 @@ extension ChatViewModel: ChatAssistDelegate {
 
 struct ChatParams {
     static let orgName = "help"
-    static let profile = "christmas"
+    static let profile = "default"
 }
