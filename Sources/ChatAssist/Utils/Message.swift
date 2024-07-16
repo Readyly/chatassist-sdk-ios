@@ -10,7 +10,8 @@ import Foundation
 extension Chat {
     public enum Message: String {
         case userDetails = "_ft_user_details_",
-             additionalDetails = "_ft_additional_details_"
+             additionalDetails = "_ft_additional_details_",
+             resize = "_ft_window_resize_"
     }
     
     public enum Action {

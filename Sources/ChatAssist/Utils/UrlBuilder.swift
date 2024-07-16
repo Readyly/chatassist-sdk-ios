@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 let baseUrl = "https://chatassist.readyly.app"
 
@@ -18,7 +19,7 @@ extension Chat {
             
             var queryItems = [
                 URLQueryItem(name: "orgName", value: context.orgName.quotos),
-                URLQueryItem(name: "platform", value: "mobile_ios".quotos)
+                URLQueryItem(name: "platform", value: getDeviceType().quotos)
             ]
             
             if let profile = context.profile {
@@ -26,8 +27,16 @@ extension Chat {
             }
             
             components.queryItems = queryItems
-            
             return components.url?.absoluteString.replacingOccurrences(of: "?", with: "#")
+        }
+        
+        private static func getDeviceType() -> String {
+            switch UIDevice.current.userInterfaceIdiom {
+            case .pad:
+                return "tablet_ios"
+            default:
+                return "mobile_ios"
+            }
         }
     }
 }

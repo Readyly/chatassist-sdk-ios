@@ -46,9 +46,16 @@ public class WebViewViewModel {
         }
     }
     
+    private func checkResize() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            postMessage(type: .resize, payload: ["width":768, "height":1024])
+        }
+    }
+    
     func receivedAction(_ action: Chat.Action) {
         switch action {
         case .ready:
+            checkResize()
             delegate?.chatDidReceiveReadyAction()
         case .close:
             reset()
