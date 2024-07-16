@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name = "ChatAssist"
-    spec.version = "0.1.0"
+    spec.version = "0.1.1"
     spec.summary = "Readyly Chat Assist"
     spec.description = "Readyly Chat Assist SDK"
     spec.license = "Readyly App License"
