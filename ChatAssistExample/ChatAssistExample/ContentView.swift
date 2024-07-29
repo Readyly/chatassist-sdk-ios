@@ -9,7 +9,7 @@ import SwiftUI
 import ChatAssist
 
 struct ContentView: View {
-    @State private var viewModel = ChatViewModel()
+    @StateObject private var viewModel = ChatViewModel()
     @State private var isSheetPresented = false
     
     var body: some View {
@@ -44,21 +44,21 @@ struct ContentView: View {
                 }
             }
         }
-        .onChange(of: viewModel.isReady) {
-            if viewModel.isReady {
+        .onChange(of: viewModel.isReady) { isReady in
+            if isReady {
                 print("Chat is ready")
                 isSheetPresented = true
             }
         }
-        .onChange(of: viewModel.isClosed) {
-            if viewModel.isClosed {
+        .onChange(of: viewModel.isClosed) { isClosed in
+            if isClosed {
                 print("Chat is closed")
                 isSheetPresented = false
                 viewModel.isClosed = false
             }
         }
-        .onChange(of: viewModel.isMinimised) {
-            if viewModel.isMinimised {
+        .onChange(of: viewModel.isMinimised) { isMinimised in
+            if isMinimised {
                 print("Chat is minimised")
             } else {
                 print("Chat is expanded")
@@ -67,6 +67,9 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+} 

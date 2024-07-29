@@ -1,5 +1,5 @@
 //
-//  Chat.swift
+//  Message.swift
 //
 //
 //  Created by Mustafa Karakus on 1.07.2024.

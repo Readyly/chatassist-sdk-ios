@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct ChatView: View {
-    @State var viewModel:WebViewViewModel
+    @StateObject var viewModel:WebViewViewModel
     
     public var body: some View {
         ZStack {
@@ -23,10 +23,12 @@ public struct ChatView: View {
                     .frame(width: 200, height: 200)
             }
             
-        }.presentationBackground(.clear)
+        }
     }
 }
 
-#Preview {
-    ChatView(viewModel: WebViewViewModel(webResource: ""))
+struct ChatView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChatView(viewModel: WebViewViewModel(webResource: ""))
+    }
 }

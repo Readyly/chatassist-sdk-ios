@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
     spec.homepage = "https://chatsdk.readyly.app/"
     spec.author = "Readyly"
     spec.platform = :ios
-    spec.ios.deployment_target = "17.0"
+    spec.ios.deployment_target = "15.0"
     spec.source = { :git => "https://github.com/Readyly/chatassist-sdk-ios.git", :tag => "#{spec.version}"  }
     spec.source_files  = "Sources/ChatAssist/**/*.{swift,h,m}"
     spec.exclude_files = "Sources/ChatAssist/Exclude"
