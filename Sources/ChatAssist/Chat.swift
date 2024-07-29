@@ -1,3 +1,10 @@
+//
+//  Chat.swift
+//
+//
+//  Created by Mustafa Karakus on 12.06.2024.
+//
+
 import Foundation
 import SwiftUI
 
@@ -21,7 +28,7 @@ public class Chat {
     
     /// Starts the chat session
     public func startSession() -> some View {
-        return ChatView(viewModel: viewModel)
+        return ChatView(viewModel: self.viewModel)
     }
     
     /// Ends the chat session

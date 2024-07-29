@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  WebViewViewModel.swift
 //
 //
 //  Created by Mustafa Karakus on 14.06.2024.
@@ -8,13 +8,12 @@
 import SwiftUI
 import WebKit
 
-@Observable
-public class WebViewViewModel {
+public class WebViewViewModel: ObservableObject {
     var webResource: String?
     var webView: WKWebView
-    var messageFromWV: String = ""
-    var isLoading: Bool = false
-    var lastState: Chat.Action = .ready
+    @Published var messageFromWV: String = ""
+    @Published var isLoading: Bool = false
+    @Published var lastState: Chat.Action = .ready
     weak var delegate: ChatAssistDelegate?
     
     public init(webResource: String? = nil, delegate: ChatAssistDelegate? = nil) {
@@ -29,12 +28,13 @@ public class WebViewViewModel {
         self.webView.isOpaque = false
         self.webView.backgroundColor = UIColor.clear
         loadUrl()
-
+        
 #if DEBUG
-        self.webView.isInspectable = true
+        if #available(iOS 16.4, *) {
+            self.webView.isInspectable = true
+        }
 #endif
     }
-    
     func messageTo(message: String) {
         let escapedMessage = message.replacingOccurrences(of: "\"", with: "\\\"")
         

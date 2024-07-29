@@ -9,12 +9,11 @@ import Foundation
 import ChatAssist
 import SwiftUI
 
-@Observable
-public class ChatViewModel {
-    var chat: Chat?
-    var isReady = false
-    var isClosed = false
-    var isMinimised = false
+public class ChatViewModel: ObservableObject {
+    @Published var chat: Chat?
+    @Published var isReady = false
+    @Published var isClosed = false
+    @Published var isMinimised = false
     
     init() {
         initialise()
