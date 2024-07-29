@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Readyly/chatassist-sdk-ios.git",
       "state" : {
-        "revision" : "550407dde4327fb4e30d4191d58a97c2e094582f",
-        "version" : "0.1.0"
+        "revision" : "7a9cd3e5f1860c1459121a31c114516962ddf9d3",
+        "version" : "0.1.2"
       }
     }
   ],
